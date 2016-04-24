@@ -48,7 +48,6 @@ $codigo_usuario = $_GET['id'];
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="crear.php">Crear</a></li>
-                <li><a href="">Cambiar mi contrase&ntilde;a</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -113,6 +112,7 @@ $codigo_usuario = $_GET['id'];
                     </div>
                 <?php endwhile;?>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="actualizar">Update</button>
+                <br>
                 <div class="alert alert-danger" role="alert" id="alertaEditarError">
                     <ul>
 
@@ -187,6 +187,9 @@ $codigo_usuario = $_GET['id'];
                         if (resultado==1){
                             $('#alertaEditarSuccess p').text('Usuario Actualizado.');
                             $('#alertaEditarSuccess').show();
+                            window.setTimeout(function(){
+                                window.location.href = "../usuario/dashboard.php";
+                            }, 5000);
 //                            window.location.href = "../usuario/dashboard.php";
                         }else if(resultado == 0){
                             $('#alertaEditarError ul').text(mensaje);

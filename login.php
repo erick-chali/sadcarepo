@@ -23,10 +23,12 @@ if (isset($_POST['submit'])) {
             {
                 $result = $row["result"];
                 $message = $row["msj"];
+                $id = $row['usrID'];
             }
         }
         if ($result == 1) {
             $_SESSION['login_user']=$username; // Initializing Session
+            $_SESSION['user_id'] =  $id;
             header("location: usuario/dashboard.php"); // Redirecting To Other Page
         } else {
             $error = $message;

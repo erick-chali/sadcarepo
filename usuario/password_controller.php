@@ -3,6 +3,41 @@ require_once "../vendor/autoload.php";
 if(isset($_POST['action'])){
     if($_POST['action'] == 'restore'){
         restore_password();
+    }if($_POST['action'] == 'change'){
+        change_password();
+    }
+}
+function change_password(){
+    header('Content-Type: application/json; charset=UTF-8');
+    $errors = [];
+    $response = [];
+
+    if (!isset($_POST['new_password']) || $_POST['new_password'] == ''){
+        array_push($errors, 'Debe ingresar la nueva clave.');
+    }else if(strlen(preg_replace('/\s+/', '', $_POST['new_password'])) < 8){
+        array_push($errors, 'La nueva clave debe ser de almenos 8 caracteres.');
+    }
+    if (!isset($_POST['repeat_new_password']) || $_POST['repeat_new_password'] == ''){
+        array_push($errors, 'Debe repetir la nueva clave.');
+    }else if (!($_POST['repeat_new_password'] == $_POST['new_password'])){
+        array_push($errors, 'Las claves no coinciden, por favor revise');
+    }
+
+    if (count($errors)>0){
+        die(json_encode(array('errors'=>$errors, 'response'=>$response)));
+    }else{
+        $conn = new PDO("mysql:host=198.71.225.58;dbname=repositorio", 'prepo', 'Ty~vj773');
+        // execute the stored procedure
+        $sql = 'CALL updatePsw(:codigo,:password,:restablece)';
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':codigo', $_POST['codigo_usuario'], PDO::PARAM_INT);
+        $stmt->bindParam(':password', $_POST['new_password'], PDO::PARAM_INT);
+        $stmt->bindParam(':restablece', $activo, PDO::PARAM_BOOL);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode(array('errors'=>$errors, 'response'=>$result));
     }
 }
 function restore_password(){
@@ -17,7 +52,7 @@ function restore_password(){
             "&response=".$captcha
         ),true);
         if ($respuesta['success']== false){
-            
+
             array_push($errors, 'spammer detected');
             echo json_encode(array('errors'=>$errors, 'response' => $response));
         }else{

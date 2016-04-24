@@ -47,7 +47,7 @@ include('../verifysession.php');
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="crear.php">Crear</a></li>
-                <li><a href="">Cambiar mi contrase&ntilde;a</a></li>
+                <li><a href="change_password.php?id=<?php echo $_SESSION['user_id']; ?>">Cambiar mi contrase&ntilde;a</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
