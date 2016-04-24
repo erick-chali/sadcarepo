@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<database>
+    <datos>
+        <host>127.0.0.1</host>
+        <username>usuario</username>
+    </datos>
+    <!--SI SE USARA MAS DE UNA BASE DE DATOS, ESPECIFICAR CADA UNA DENTRO DE UNA ETIQUETA "<datos></datos>"
+        DE LO CONTRARIO SOLO REESCRIBIR LAS CREDENCIALES
+    -->
+    <!--<datos>-->
+        <!--<host>127.0.0.1</host>-->
+        <!--<username>usuario</username>-->
+    <!--</datos>-->
+</database>
